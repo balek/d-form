@@ -1,0 +1,105 @@
+<index: element="d-form">
+    <form as="elem" id="{{id}}" class="{{@class}}" on-submit="submit()" novalidate>
+        {{@content}}
+    </form>
+
+
+<field: element="d-field" attributes="label">
+    <div class="form-group {{if submitted && findError(errors)}}has-error{{/}} {{if @required}}required{{/}} {{@class}}">
+        {{if @label}}
+            <label class="control-label" for="{{id}}">{{@label}}</label>
+        {{/if}}
+        {{@content}}
+        {{if submitted}}
+            {{if errors.required}}
+                <small class="help-block">Это поле необходимо заполнить.</small>
+            {{/if}}
+            {{if errors.format}}
+                <small class="help-block">Некорректное значение.</small>
+            {{/if}}
+        {{/if}}
+    </div>
+
+
+<field-hidden: element="d-field-hidden">
+
+
+<field-input: element="d-field-input" attributes="label">
+    <d-field required="{{required}}" extend>
+        <input class="form-control" as="elem" type="text" id="{{id}}" value="{{value}}" autocomplete="off">
+    </d-field>
+
+
+<field-textarea: element="d-field-textarea" attributes="label">
+    <vfield required="{{required}}" extend>
+        <textarea class="form-control" id="{{id}}">{{value}}</textarea>
+    </vfield>
+
+
+<field-daterangepicker: element="d-field-daterangepicker" attributes="label">
+    <vfield required="{{required}}" extend>
+        <daterangepicker class="form-control" as="elem" id="{{id}}" value="{{value}}" config="{{config}}" required="{{@required}}" disabled="{{@disabled}}"></daterangepicker>
+    </vfield>
+
+
+<field-checkbox: element="d-field-checkbox" attributes="label">
+    <div class="form-group checkbox {{if submitted && errors.required}}has-error{{/}} {{if @required}}required{{/}} {{@class}}">
+        <input type="checkbox" id="{{id}}" checked="{{value}}">
+        <label for="{{id}}">{{@label}}</label>
+        {{if submitted}}
+            {{if errors.required}}
+                <small class="help-block">Это поле необходимо заполнить.</small>
+            {{/if}}
+        {{/if}}
+    </div>
+
+
+<radio: element="d-radio" arrays="option/options">
+    {{each options as #option}}
+        <div class="form-group radio {{if submitted && errors.required}}has-error{{/}} {{if #option.disabled}}disabled{{/}} {{#option['class']}}">
+            <input type="radio" name="{{id}}" id="{{id}}-{{#option.value}}" checked="{{value == #option.value}}" disabled="{{#option.disabled}}">
+            <label for="{{id}}-{{#option.value}}">{{#option.text}}</label>
+        </div>
+    {{/each}}
+
+
+<field-radio: element="d-field-radio" attributes="label" arrays="option/options">
+    <d-field required="{{required}}" extend>
+        <d-radio options="{{options}}" class="{{@class}}" value="{{value}}"></d-radio>
+    </d-field>
+
+
+<radio-btn-group: element="d-radio-btn-group" arrays="option/options">
+    <div class="btn-group radio-btn-group">
+        {{each options as #option}}
+            <label class="btn {{if value == #option.value}}active{{/}} {{@class || 'btn-default'}}">
+                {{#option.text}}
+                <input type="radio" name="{{id}}" checked="{{value == #option.value}}">
+            </label>
+        {{/each}}
+    </div>
+
+
+<field-radio-btn-group: element="d-field-radio-btn-group" attributes="label" arrays="option/options">
+    {{if @label}}
+        <label>{{@label}}</label>
+    {{/if}}
+    <d-radio-btn-group options="{{options}}" class="{{@class}}" value="{{value}}"></d-radio-btn-group>
+
+
+<field-number: element="d-field-number" attributes="label">
+    <d-field required="{{required}}" label="{{@label}}" extend>
+        <input-number class="form-control" id="{{id}}" value="{{value}}" max="{{max}}" precision="{{precision}}"></input-number>
+    </d-field>
+
+
+<field-phone: element="d-field-phone" attributes="label">
+    <d-field required="{{required}}" extend>
+        <input-phone class="form-control" id="{{id}}" value="{{value}}"></input-phone>
+    </d-field>
+
+
+<field-email: element="d-field-email" attributes="label">
+    <d-field required="{{required}}" extend>
+        <input class="form-control" as="elem" type="email" id="{{id}}" value="{{value}}" autocomplete="off">
+    </d-field>
