@@ -1,6 +1,6 @@
 {
   "name": "d-form",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DerbyJS forms plugin",
   "main": "index.js",
   "scripts": {
