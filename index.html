@@ -31,15 +31,15 @@
 
 
 <field-textarea: element="d-field-textarea" attributes="label">
-    <vfield required="{{required}}" extend>
+    <d-field required="{{required}}" extend>
         <textarea class="form-control" id="{{id}}">{{value}}</textarea>
-    </vfield>
+    </d-field>
 
 
 <field-daterangepicker: element="d-field-daterangepicker" attributes="label">
-    <vfield required="{{required}}" extend>
+    <d-field required="{{required}}" extend>
         <daterangepicker class="form-control" as="elem" id="{{id}}" value="{{value}}" config="{{config}}" required="{{@required}}" disabled="{{@disabled}}"></daterangepicker>
-    </vfield>
+    </d-field>
 
 
 <field-checkbox: element="d-field-checkbox" attributes="label">
