@@ -59,7 +59,30 @@ class DField
         form.on 'reset', => @reset()
         @reset()
 
+        attributeContext = @context.forAttribute 'path'
+        if _.isObject attributeContext?.attributes.path
+            dependencies = attributeContext.attributes.path.dependencies attributeContext
+        else
+            dependencies = []
+        checkExpr = =>
+            value = @getAttribute('path')
+            return unless @path != value
+            @path = value
+            @model.set 'id', form.prefix + @path
+            @model.start 'value', @formModel.at(@path),
+                get: (value) -> value
+                set: (value) ->
+                    if _.isString value
+                        [value.trim()]
+                    else
+                        [value]
+    
+            @model.ref 'errors', @formModel.at "_errors.#{@path}"
 
+        @eventModel = @model.scope()
+        for segments in dependencies
+            @eventModel.on 'all', segments.join('.'), checkExpr
+            
         @model.set 'errors._cleanInside', false
         @model.start 'errors.required', 'required', 'value', (required, value) ->
             return unless required
@@ -168,12 +191,6 @@ module.exports = class
                 @model.start 'errors.format', 'value', 'disableCheck', (value, disableCheck) ->
                     return unless value and not disableCheck
                     not re.test value
-
-        class extends DField
-            name: 'field-number'
-
-        class extends DField
-            name: 'field-phone'
 
         class extends DField
             name: 'field-checkbox'

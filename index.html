@@ -87,18 +87,6 @@
     <d-radio-btn-group options="{{options}}" class="{{@class}}" value="{{value}}"></d-radio-btn-group>
 
 
-<field-number: element="d-field-number" attributes="label">
-    <d-field required="{{required}}" label="{{@label}}" extend>
-        <input-number class="form-control" id="{{id}}" value="{{value}}" max="{{max}}" precision="{{precision}}"></input-number>
-    </d-field>
-
-
-<field-phone: element="d-field-phone" attributes="label">
-    <d-field required="{{required}}" extend>
-        <input-phone class="form-control" id="{{id}}" value="{{value}}"></input-phone>
-    </d-field>
-
-
 <field-email: element="d-field-email" attributes="label">
     <d-field required="{{required}}" extend>
         <input class="form-control" as="elem" type="email" id="{{id}}" value="{{value}}" autocomplete="off">
