@@ -143,10 +143,6 @@ module.exports = class
             clearData data, data._errors
             data
 
-        for m in _.functionsIn @parent.__proto__
-            if m not of @ and m not in ['create', 'subscribe']
-                @[m] = @parent[m].bind @parent
-
     submit: ->
 #        @model.set 'submitted', true
 #        errors = @model.get 'errors'
