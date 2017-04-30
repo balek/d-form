@@ -123,15 +123,15 @@ module.exports = class
     view: __dirname
     init: ->
         @setMaxListeners 50  # Every field subscribes for 'reset' event
-        @model = @parent.model
-        @_scope = @parent._scope
+#        @model = @parent.model
+#        @_scope = @parent._scope
 
         @path = @getAttribute('path') or 'data'
         if @path == 'data'
             @prefix = ''
         else
             @prefix = @path + '.'
-        @formModel = @model.at @path
+        @formModel = @parent.model.at @path
 #        if 'data' not of @model.get()
 #            @model.ref 'data', @parent.model.at 'data'
 #            @model.ref 'submitted', @parent.model.at 'submitted'
