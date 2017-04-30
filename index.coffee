@@ -146,6 +146,7 @@ module.exports = class
             data
             
         @on 'destroy', =>
+            @formModel.destroy()
             @model = @_model
             @_scope = @__scope
 
