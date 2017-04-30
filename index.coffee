@@ -123,8 +123,10 @@ module.exports = class
     view: __dirname
     init: ->
         @setMaxListeners 50  # Every field subscribes for 'reset' event
-#        @model = @parent.model
-#        @_scope = @parent._scope
+        @_model = @model
+        @__scope = @_scope
+        @model = @parent.model
+        @_scope = @parent._scope
 
         @path = @getAttribute('path') or 'data'
         if @path == 'data'
@@ -142,6 +144,10 @@ module.exports = class
             data = _.cloneDeep data
             clearData data, data._errors
             data
+            
+        @on 'destroy', =>
+            @model = @_model
+            @_scope = @__scope
 
     submit: ->
 #        @model.set 'submitted', true
