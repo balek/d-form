@@ -15,6 +15,7 @@ findError = (obj) ->
     false
 
 clearData = (data, errors) ->
+    return data.trim() if _.isString data
     return if not _.isObject data
     # Одно поле содержит массив значений. Например, метки.
     return if _.isArray(data) and _.isPlainObject errors
@@ -41,18 +42,22 @@ class DField
                 form = @parent
                 break
         @formModel = form.formModel or form.model
-#        @model.ref 'value', @formModel.at @path
+        @model.ref 'value', @formModel.at @path
         @model.set 'id', form.prefix + @path
-        @model.start 'value', @formModel.at(@path),
-            get: (value) -> value
-            set: (value) ->
-                if _.isString value
-                    [value.trim()]
-                else
-                    [value]
+#        @model.start 'value', @formModel.at(@path),
+#            get: (value) -> value
+#            set: (value) ->
+#                if _.isString value
+#                    [value.trim()]
+#                else
+#                    [value]
 
         if 'ref' of @model.get()
-            @model.ref 'value', 'ref'
+#            @model.ref 'value', 'ref'
+            refContext = @context.forAttribute 'ref'
+            refPath = refContext.attributes.ref.pathSegments(refContext).join '.'
+            @model.ref @model.root.at(refPath), 'value'
+            @on 'destroy', => @model.root.removeRef refPath
 
         @model.ref 'submitted', @formModel.at '_submitted'
         @model.ref 'errors', @formModel.at "_errors.#{@path}"
@@ -68,14 +73,15 @@ class DField
             value = @getAttribute('path')
             return unless @path != value
             @path = value
+            @model.ref 'value', @formModel.at @path
             @model.set 'id', form.prefix + @path
-            @model.start 'value', @formModel.at(@path),
-                get: (value) -> value
-                set: (value) ->
-                    if _.isString value
-                        [value.trim()]
-                    else
-                        [value]
+#            @model.start 'value', @formModel.at(@path),
+#                get: (value) -> value
+#                set: (value) ->
+#                    if _.isString value
+#                        [value.trim()]
+#                    else
+#                        [value]
     
             @model.ref 'errors', @formModel.at "_errors.#{@path}"
 
