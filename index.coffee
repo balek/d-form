@@ -55,7 +55,7 @@ class DField
         if 'ref' of @model.get()
 #            @model.ref 'value', 'ref'
             refContext = @context.forAttribute 'ref'
-            refPath = refContext.attributes.ref.pathSegments(refContext).join '.'
+            refPath = refContext.attributes.ref.expression.pathSegments(refContext).join '.'
             @model.ref @model.root.at(refPath), 'value'
             @on 'destroy', => @model.root.removeRef refPath
 
