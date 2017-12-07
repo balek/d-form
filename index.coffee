@@ -23,7 +23,7 @@ clearData = (data, errors) ->
         if _.isObject(errors[k]) and not _.startsWith k, '_'
             continue if errors[k]._cleanInside == false
             clearData data[k], errors[k]
-            if _.isObject(data[k]) and _.isEmpty(data[k])
+            if _.isPlainObject(data[k]) and _.isEmpty(data[k])
                 delete data[k]
         else
             if _.isArray data
@@ -186,13 +186,13 @@ module.exports = class
 
 
     components: [
-        class extends DField
+        class Field extends DField
             name: 'field'
 
-        class extends DField
+        class FieldInput extends DField
             name: 'field-input'
 
-        class extends DField
+        class FieldEmail extends DField
             name: 'field-email'
             init: ->
                 super()
@@ -201,32 +201,32 @@ module.exports = class
                     return unless value and not disableCheck
                     not re.test value
 
-        class extends DField
+        class FieldCheckbox extends DField
             name: 'field-checkbox'
 
-        class extends Radio
+        class Radio extends Radio
             name: 'radio'
 
-        class extends Radio
+        class RadioBtnGroup extends Radio
             name: 'radio-btn-group'
 
-        class extends DField
+        class FieldRadio extends DField
             name: 'field-radio'
 
-        class extends DField
+        class FieldRadioBtnGroup extends DField
             name: 'field-radio-btn-group'
 
-        class extends DField
+        class FieldTextarea extends DField
             name: 'field-textarea'
 
-        class extends DField
+        class FieldDaterangepicker extends DField
             name: 'field-daterangepicker'
             reset: ->
                 super()
                 @model.setNull 'errors.start', {}
                 @model.setNull 'errors.end', {}
 
-        class extends DField
+        class FieldHidden extends DField
             name: 'field-hidden'
     ]
 
