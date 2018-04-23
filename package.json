@@ -4,8 +4,7 @@
   "description": "DerbyJS forms plugin",
   "main": "index.js",
   "scripts": {
-    "build": "coffee -c index.coffee",
-    "prepublish": "npm run build"
+    "prepare": "coffee -c index.coffee"
   },
   "author": "Alexey Balekhov <a@balek.ru>",
   "license": "AGPL-3.0",
@@ -24,7 +23,7 @@
   "homepage": "https://github.com/balek/d-form",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "coffee-script": "^1.10.0"
+    "coffeescript": "^2.2.4"
   },
   "dependencies": {
     "lodash": "^4.14.1"
